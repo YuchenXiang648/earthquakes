@@ -79,6 +79,31 @@ def plot_average_magnitude_per_year(earthquakes):
     plt.savefig("average_magnitude_per_year.png")
     plt.show()
 
+def plot_combined(earthquakes):
+    """Plot both number and average magnitude on one figure."""
+    magnitudes_by_year = get_magnitudes_per_year(earthquakes)
+    years = sorted(magnitudes_by_year.keys())
+    counts = [len(magnitudes_by_year[y]) for y in years]
+    avg_magnitudes = [sum(magnitudes_by_year[y]) / len(magnitudes_by_year[y]) for y in years]
+
+    fig, ax1 = plt.subplots(figsize=(9, 5))
+
+    ax1.bar(years, counts, color='skyblue', alpha=0.7, label='Number of Earthquakes')
+    ax1.set_xlabel("Year")
+    ax1.set_ylabel("Number of Earthquakes", color='blue')
+    ax1.tick_params(axis='y', labelcolor='blue')
+
+    ax2 = ax1.twinx()
+    ax2.plot(years, avg_magnitudes, color='orange', marker='o', label='Average Magnitude')
+    ax2.set_ylabel("Average Magnitude", color='orange')
+    ax2.tick_params(axis='y', labelcolor='orange')
+
+    plt.title("Earthquake Frequency and Average Magnitude per Year (UK)")
+    fig.tight_layout()
+    plt.grid(True, linestyle='--', alpha=0.5)
+
+    plt.savefig("earthquake_combined.png")
+    plt.show()
 
 # --- Main execution ---
 if __name__ == "__main__":
@@ -86,3 +111,5 @@ if __name__ == "__main__":
     plot_number_per_year(quakes)
     plt.clf()
     plot_average_magnitude_per_year(quakes)
+    plt.clf()
+    plot_combined(quakes)
