@@ -71,7 +71,7 @@ def plot_average_magnitude_per_year(earthquakes):
     avg_magnitudes = [sum(magnitudes_by_year[y]) / len(magnitudes_by_year[y]) for y in years]
 
     plt.figure(figsize=(8, 4))
-    plt.plot(years, avg_magnitudes, marker='o', color='orange')
+    plt.plot(years, avg_magnitudes, marker='o', color='skyblue')
     plt.xlabel("Year")
     plt.ylabel("Average Magnitude")
     plt.title("Average Earthquake Magnitude per Year")
